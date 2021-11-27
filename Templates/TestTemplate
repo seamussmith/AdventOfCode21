@@ -5,8 +5,8 @@ namespace %(namespace)s;
 
 public class Test
 {
-    private readonly string TEST_INPUT = System.IO.File.ReadAllText("../../../../%(proj_name)s.Inputs/Day%(day)s/testinput.txt");
-    private readonly string PUZZLE_INPUT = System.IO.File.ReadAllText("../../../../%(proj_name)s.Inputs/Day%(day)s/puzzleinput.txt");
+    private readonly string TEST_INPUT = System.IO.File.ReadAllText("../../../Inputs/testinput.txt");
+    private readonly string PUZZLE_INPUT = System.IO.File.ReadAllText("../../../Inputs/puzzleinput.txt");
     private readonly ITestOutputHelper output;
     public Test(ITestOutputHelper _output)
     {

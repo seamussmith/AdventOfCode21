@@ -1,3 +1,4 @@
+#!/bin/python
 import sys, os, re
 
 def dotnet_new(template: str, name: str):
@@ -52,7 +53,7 @@ open(f"./{project}/Solution.cs", "x").write(solution_template % (template_data |
 open(f"./{project_test}/Test.cs", "x").write(test_template % (template_data | {"namespace": project_test}))
 
 # Create some files for the puzzle inputs
-os.makedirs(f"./{proj_name}.Inputs/Day{day}/", exist_ok=True)
+os.makedirs(f"./{project_test}/Inputs/", exist_ok=True)
 # oh OH OHHH HE IS MAKING THE RESOURCES LEAK AGAIN OH LOOK AT EM GO ALL THE RESOURCES YEAAA BOI! HTOP GIVING ALL FULL RED BARS WHOA!
-open(f"./{proj_name}.Inputs/Day{day}/testinput.txt", "w+")
-open(f"./{proj_name}.Inputs/Day{day}/puzzleinput.txt", "w+")
+open(f"./{project_test}/Inputs/testinput.txt", "w+")
+open(f"./{project_test}/Inputs/puzzleinput.txt", "w+")
