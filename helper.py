@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python3
 import sys, os, re
 
 def dotnet_new(template: str, name: str):
