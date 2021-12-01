@@ -16,7 +16,7 @@ public class Test
     public void Solution1_ShouldOutputTheExampleResult()
     {
         var sol = new Solution(TEST_INPUT);
-        Assert.Equal(0, sol.Solution1());
+        Assert.Equal(7, sol.Solution1());
     }
     [Fact]
     public void Solution1_PuzzleOutput()
@@ -24,13 +24,13 @@ public class Test
         var sol = new Solution(PUZZLE_INPUT);
         output.WriteLine($"Puzzle 1 Output: {sol.Solution1()}");
     }
-    [Fact(Skip = "Not Implemented")]
+    [Fact]
     public void Solution2_ShouldOutputTheExampleResult()
     {
         var sol = new Solution(TEST_INPUT);
-        Assert.Equal(0, sol.Solution2());
+        Assert.Equal(5, sol.Solution2());
     }
-    [Fact(Skip = "Not Implemented")]
+    [Fact]
     public void Solution2_PuzzleOutput()
     {
         var sol = new Solution(PUZZLE_INPUT);

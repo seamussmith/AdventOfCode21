@@ -3,16 +3,32 @@ namespace AdventOfCode21.Day1;
 
 public class Solution
 {
+    List<int> reports;
     public Solution(string input)
     {
-        // Parse your input and preferably store it
+        reports = input.Split("\n").Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x)).ToList();
     }
     public long Solution1()
     {
-        throw new NotImplementedException("Solution 1 is not implemented yet");
+        var inc = 0;
+        for (var i = 1; i < reports.Count(); ++i)
+        {
+            if (reports[i - 1] < reports[i])
+                ++inc;
+        }
+        return inc;
     }
     public long Solution2()
     {
-        throw new NotImplementedException("Solution 2 is not implemented yet");
+        var inc = 0;
+        int? last = null;
+        for (var i = 2; i < reports.Count(); ++i)
+        {
+            var curr = reports[i - 2] + reports[i - 1] + reports[i];
+            if (last is not null && curr > last)
+                ++inc;
+            last = curr;
+        }
+        return inc;
     }
 }
