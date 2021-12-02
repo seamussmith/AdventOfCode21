@@ -16,7 +16,7 @@ public class Test
     public void Solution1_ShouldOutputTheExampleResult()
     {
         var sol = new Solution(TEST_INPUT);
-        Assert.Equal(0, sol.Solution1());
+        Assert.Equal(150, sol.Solution1());
     }
     [Fact]
     public void Solution1_PuzzleOutput()
