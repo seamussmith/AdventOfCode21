@@ -34,7 +34,26 @@ public class Solution
     }
     public long Solution2()
     {
-        throw new NotImplementedException("Solution 2 is not implemented yet");
+        long x = 0;
+        long y = 0;
+        long a = 0;
+        commands.ForEach(c =>
+        {
+            switch (c.Dir)
+            {
+                case Direction.DOWN:
+                    a += c.Count;
+                    break;
+                case Direction.UP:
+                    a -= c.Count;
+                    break;
+                case Direction.FORWARD:
+                    x += c.Count;
+                    y += a * c.Count;
+                    break;
+            }
+        });
+        return x * y;
     }
     enum Direction
     {
