@@ -23,11 +23,17 @@ public class Solution
         long y = 0;
         commands.ForEach(c =>
         {
-            var z = c.Dir switch
+            switch (c.Dir)
             {
-                Direction.DOWN => y += c.Count,
-                Direction.UP => y -= c.Count,
-                Direction.FORWARD => x += c.Count,
+                case Direction.DOWN:
+                    y += c.Count;
+                    break;
+                case Direction.UP:
+                    y -= c.Count;
+                    break;
+                case Direction.FORWARD:
+                    x += c.Count;
+                    break;
             };
         });
         return x * y;
