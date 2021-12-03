@@ -44,8 +44,8 @@ public class Solution
         while (nums.Count() != 1)
         {
             var comm = GetCommonBits(nums);
-            var majorBits = nums.Count() / 2;
-            if (comm[iter] > majorBits)
+            var majorBits = Math.Ceiling(((double)nums.Count()) / 2);
+            if (comm[iter] >= majorBits)
                 nums = nums.Where(x => x[iter] == '1').ToList();
             else
                 nums = nums.Where(x => x[iter] == '0').ToList();
@@ -57,11 +57,11 @@ public class Solution
         while (nums.Count() != 1)
         {
             var comm = GetCommonBits(nums);
-            var majorBits = nums.Count() / 2;
-            if (comm[iter] > majorBits)
-                nums = nums.Where(x => x[iter] != '1').ToList();
+            var majorBits =  Math.Ceiling(((double)nums.Count()) / 2);
+            if (comm[iter] >= majorBits)
+                nums = nums.Where(x => x[iter] == '0').ToList();
             else
-                nums = nums.Where(x => x[iter] != '0').ToList();
+                nums = nums.Where(x => x[iter] == '1').ToList();
             ++iter;
         }
         co2rating = Convert.ToInt64(nums.First(), 2);
