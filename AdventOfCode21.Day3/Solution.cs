@@ -6,7 +6,7 @@ public class Solution
     readonly IReadOnlyList<string> bits;
     public Solution(string input)
     {
-        bits = input.Split("\n").Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+        bits = input.Split(Environment.NewLine).Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
     }
     public long Solution1()
     {
