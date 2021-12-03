@@ -10,14 +10,8 @@ public class Solution
     }
     public long Solution1()
     {
-        var comm = new long[bits[0].Length];
+        var comm = GetCommonBits(bits);
         var majorBits = bits.Count() / 2;
-        foreach (var b in bits)
-        {
-            for (var i = 0; i != b.Length; ++i)
-                if (b[i] == '1')
-                    comm[i] += 1;
-        }
         var gamma = Convert.ToInt64(comm.Aggregate("", (a, b) => a + (b >= majorBits ? "1" : "0")), 2);
         var epsilon = Convert.ToInt64(comm.Aggregate("", (a, b) => a + (b <= majorBits ? "1" : "0")), 2);
 
