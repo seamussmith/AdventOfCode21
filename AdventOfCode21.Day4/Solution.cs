@@ -15,19 +15,19 @@ public class Solution
         drawnNums = firstRow;
         var bingoBoards = split.Skip(2)
             .Where(x => !string.IsNullOrWhiteSpace(x))
-            .Select((x, i) => new { Value = x, Index = i })
-            .GroupBy(x => x.Index / 5)
-            .Select(x => x.Select(x => x.Value).ToList())
+            .Select((x, i) => new { Value = x, Index = i }) // Preserve the index, we need this for grouping
+            .GroupBy(x => x.Index / 5)                      // Group our strings by 5, since thats the size of the boards
+            .Select(x => x.Select(x => x.Value).ToList())   // Convert the groupings to a list of lists
             .Select(
                 x => x.Select(
                     x => num.Matches(x).Select(
-                        x => new BoardSlot(false, long.Parse(x.Value))
+                        x => new BoardSlot(false, long.Parse(x.Value)) // Convert each list of strings into a list of list of BoardSlots
                     ).ToList()
                 ).ToList()
             ).ToList();
         boards = bingoBoards;
     }
-    bool IsWinner(List<List<BoardSlot>> board)
+    bool IsWinner(IReadOnlyList<IReadOnlyList<BoardSlot>> board)
     {
         // Hori
         for (var y = 0; y < board[0].Count(); ++y)
