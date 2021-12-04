@@ -17,7 +17,7 @@ public class Solution
             .Where(x => !string.IsNullOrWhiteSpace(x))
             .Select((x, i) => new { Value = x, Index = i }) // Preserve the index, we need this for grouping
             .GroupBy(x => x.Index / 5)                      // Group our strings by 5, since thats the size of the boards
-            .Select(x => x.Select(x => x.Value).ToList())   // Convert the groupings to a list of lists
+            .Select(x => x.Select(x => x.Value))   // Convert the groupings to a list of lists
             .Select(
                 x => x.Select(
                     x => num.Matches(x).Select(
