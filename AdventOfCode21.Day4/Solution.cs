@@ -18,16 +18,10 @@ public class Solution
             .Select((x, i) => new { Value = x, Index = i })
             .GroupBy(x => x.Index / 5)
             .Select(x => x.Select(x => x.Value).ToList())
-            .Select(x =>
-                x.Select(
+            .Select(
+                x => x.Select(
                     x => num.Matches(x).Select(
                         x => new BoardSlot(false, long.Parse(x.Value))
-                    )
-                )
-            ).Select(
-                x => x.Select(
-                    x => x.Select(
-                        x => x
                     ).ToList()
                 ).ToList()
             ).ToList();
