@@ -13,26 +13,25 @@ public class Solution
         var split = input.Split(Environment.NewLine);
         var firstRow = split[0].Split(",").Select(x => long.Parse(x)).ToList();
         drawnNums = firstRow;
-        var bingoBoardFirst = split.Skip(2);
-        var isolatedBoards = bingoBoardFirst.Aggregate(new List<List<List<BoardSlot>>>(), (a, b) =>
-        {
-            if (string.IsNullOrWhiteSpace(b))
-            {
-                a.Add(new List<List<BoardSlot>>());
-                return a;
-            }
-            var board = a.LastOrDefault();
-            if (board is null)
-            {
-                a.Add(new List<List<BoardSlot>>());
-                board = a.Last();
-            }
-            var x = num.Matches(b);
-            var newRow = x.Select(x => new BoardSlot(false, long.Parse(x.Value))).ToList();
-            board.Add(newRow);
-            return a;
-        });
-        boards = isolatedBoards.Where(x => x.Count() != 0).ToList();
+        var bingoBoards = split.Skip(2)
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select((x, i) => new { Value = x, Index = i })
+            .GroupBy(x => x.Index / 5)
+            .Select(x => x.Select(x => x.Value).ToList())
+            .Select(x =>
+                x.Select(
+                    x => num.Matches(x).Select(
+                        x => new BoardSlot(false, long.Parse(x.Value))
+                    )
+                )
+            ).Select(
+                x => x.Select(
+                    x => x.Select(
+                        x => x
+                    ).ToList()
+                ).ToList()
+            ).ToList();
+        boards = bingoBoards;
     }
     bool IsWinner(List<List<BoardSlot>> board)
     {
