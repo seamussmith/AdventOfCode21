@@ -74,8 +74,10 @@ public class Solution
         ).ToList();
         var round = 0;
 
+        // While there isnt any winner...
         while (!game.Any(x => IsWinner(x)))
         {
+            // Mark ALL boardslots in the game that match the drawn number
             game = game.Select(
                 x => x.Select(
                     x => x.Select(
@@ -88,7 +90,10 @@ public class Solution
             ).ToList();
             ++round;
         }
+        // The winner should be the first (and only) board when filtering for winners
         var winner = game.Where(x => IsWinner(x)).First();
+        // Aggregate the values of all unmarked slots.
+        // Multi-dimensional aggregation because two dimensional list
         return winner.Aggregate((long)0, (a, b) =>
                 a + b.Aggregate((long)0, (a, b) =>
                     a + (b.Marked ? 0 : b.Value)
@@ -106,7 +111,9 @@ public class Solution
         ).ToList();
         var round = 0;
 
+        // Stack of indexes of won boards
         var wonBoards = new Stack<int>();
+        // Until all boards are winners...
         while (!game.All(x => IsWinner(x)))
         {
             game = game.Select(
@@ -119,6 +126,7 @@ public class Solution
                     ).ToList()
                 ).ToList()
             ).ToList();
+            // Add new winners to the wonBoards stack
             for (var i = 0; i < game.Count(); ++i)
             {
                 if (!IsWinner(game[i]) || wonBoards.Contains(i))
@@ -127,6 +135,7 @@ public class Solution
             }
             ++round;
         }
+        // The winner's index should be on top of the stack
         var winner = game[wonBoards.Pop()];
         return winner.Aggregate((long)0, (a, b) =>
                 a + b.Aggregate((long)0, (a, b) =>
