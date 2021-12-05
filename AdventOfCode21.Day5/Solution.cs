@@ -20,29 +20,24 @@ public class Solution
         // (foreshadowing...)
         // Grab all straight lines then aggregate their length
         var validLines = lines.Where(x => (x.PointA.X == x.PointB.X) ^ (x.PointA.Y == x.PointB.Y)).ToList();
-        var sumX = validLines.Select(x =>
-            validLines.Where(y => x.PointA.Y == y.PointB.Y).Select(y => (x, y))
-        )
-        .Where(x => x.Count() != 0)
-        .Aggregate(
-            (long)0,
-            (a, b) => a + b.Aggregate(
-                (long)0,
-                (a, b) => a + Math.Abs(b.x.Length - b.y.Length)
-            )
-        );
+        // An 8 megabyte large array of hits...
+        // https://www.youtube.com/watch?v=DNeikvoqQ-s
+        var grid = new long[1000, 1000];
 
-        var sumY = validLines.Select(x => validLines.Where(y => x.PointA.Y == y.PointB.Y).Select(y => (x, y)))
-        .Where(x => x.Count() != 0)
-        .Aggregate(
-            (long)0,
-            (a, b) => a + b.Aggregate(
-                (long)0,
-                (a, b) => a + Math.Abs(b.x.Length - b.y.Length)
-            )
-        );
+        foreach (var i in validLines)
+        {
+            for (var x = i.PointA.X;
+                i.PointA.X <= i.PointB.X ? x <= i.PointB.X : x >= i.PointB.X;
+                x += i.PointA.X > i.PointB.X ? -1 : 1)
+                for (var y = i.PointA.Y;
+                    i.PointA.Y <= i.PointB.Y ? y <= i.PointB.Y : y >= i.PointB.Y;
+                    y += i.PointA.Y > i.PointB.Y ? -1 : 1)
+                {
+                    grid[x, y] += 1;
+                }
+        }
 
-        return sumX + sumY;
+        return grid.Cast<long>().Where(x => x > 1).Select(x => x - 1).Sum();
     }
 
     public long Solution2()
