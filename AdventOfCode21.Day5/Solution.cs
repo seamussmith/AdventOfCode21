@@ -47,6 +47,9 @@ public class Solution
 
     public long Solution2()
     {
+        // A couple minutes after re-reading my code, after I got the second star,
+        // I realized that these names are switched up
+        // Oh well ¯\_(ツ)_/¯ 
         var diags = lines.Where(x => (x.PointA.X == x.PointB.X) || (x.PointA.Y == x.PointB.Y)).ToList();
         var horis = lines.Where(x => (x.PointA.X != x.PointB.X) && (x.PointA.Y != x.PointB.Y)).ToList();
         var grid = new long[1000, 1000];
