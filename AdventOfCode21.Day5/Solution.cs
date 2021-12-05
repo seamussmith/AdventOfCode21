@@ -42,7 +42,8 @@ public class Solution
         // Where there is one or less hit, there is no intercection.
         // Where there are 2 or more, n - 1 is the number of intercections.
         // There has to be some obscure bug in the spaghetti that is my for loops, though all inputs seem to have reasonable behavior
-        return grid.Cast<long>().Where(x => x > 1).Select(x => x - 1).Count();
+        // TURNS OUT THE "OBSCURE BUG" WAS MY HALF-WITTED READING SKILLS. I NEED THE COUNT NOT THE SUM
+        return grid.Cast<long>().Where(x => x > 1).Count();
     }
 
     public long Solution2()
@@ -82,8 +83,10 @@ public class Solution
                 grid[p.X, p.Y] += 1;
             }
         }
-        return grid.Cast<long>().Where(x => x > 1).Select(x => x - 1).Count();
+        return grid.Cast<long>().Where(x => x > 1).Count();
     }
+    // All of these methods other than the operator overloads are pretty much useless.
+    // I tried to think up of a clever mathy way of doing things, but since mathematicians are short-sighted idiots, they only work with real numbers
     record struct Point
     {
         public long X { get; init; }
