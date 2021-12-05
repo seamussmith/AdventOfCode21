@@ -24,6 +24,7 @@ public class Solution
         // https://www.youtube.com/watch?v=DNeikvoqQ-s
         var grid = new long[1000, 1000];
 
+        // Hit every point on the grid each line covers
         foreach (var line in validLines)
         {
             for (var x = line.PointA.X;
@@ -41,12 +42,42 @@ public class Solution
         // Where there is one or less hit, there is no intercection.
         // Where there are 2 or more, n - 1 is the number of intercections.
         // There has to be some obscure bug in the spaghetti that is my for loops, though all inputs seem to have reasonable behavior
-        return grid.Cast<long>().Where(x => x > 1).Select(x => x - 1).Sum();
+        return grid.Cast<long>().Where(x => x > 1).Select(x => x - 1).Count();
     }
 
     public long Solution2()
     {
-        throw new NotImplementedException("Solution 2 is not implemented yet");
+        var diags = lines.Where(x => (x.PointA.X == x.PointB.X) || (x.PointA.Y == x.PointB.Y)).ToList();
+        var horis = lines.Where(x => (x.PointA.X != x.PointB.X) && (x.PointA.Y != x.PointB.Y)).ToList();
+        var grid = new long[1000, 1000];
+
+        // Hit every point on the grid each line covers
+        foreach (var line in diags)
+        {
+            for (var x = line.PointA.X;
+                line.PointA.X <= line.PointB.X ? x <= line.PointB.X : x >= line.PointB.X;
+                x += line.PointA.X > line.PointB.X ? -1 : 1)
+                for (var y = line.PointA.Y;
+                    line.PointA.Y <= line.PointB.Y ? y <= line.PointB.Y : y >= line.PointB.Y;
+                    y += line.PointA.Y > line.PointB.Y ? -1 : 1)
+                {
+                    grid[x, y] += 1;
+                }
+        }
+        foreach (var line in horis)
+        {
+            // uuuuuuuuuuuuuuuuuuu
+            for (var p = line.PointA;
+                line.PointA.X <= line.PointB.X ? p.X <= line.PointB.X : p.X >= line.PointB.X;
+                p -= new Point(
+                    line.PointA.X > line.PointB.X ? 1 : -1,
+                    line.PointA.Y > line.PointB.Y ? 1 : -1
+                ))
+            {
+                grid[p.X, p.Y] += 1;
+            }
+        }
+        return grid.Cast<long>().Where(x => x > 1).Select(x => x - 1).Count();
     }
     record struct Point
     {
