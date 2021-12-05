@@ -67,6 +67,8 @@ public class Solution
         foreach (var line in horis)
         {
             // uuuuuuuuuuuuuuuuuuu
+            // so hey i have these neat little operator overloads i made for these points
+            // so why the heck dont i use them???
             for (var p = line.PointA;
                 line.PointA.X <= line.PointB.X ? p.X <= line.PointB.X : p.X >= line.PointB.X;
                 p -= new Point(
