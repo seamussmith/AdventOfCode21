@@ -19,24 +19,28 @@ public class Solution
     {
         // (foreshadowing...)
         // Grab all straight lines then aggregate their length
-        var validLines = lines.Where(x => (x.PointA.X == x.PointB.X) ^ (x.PointA.Y == x.PointB.Y)).ToList();
+        var validLines = lines.Where(x => (x.PointA.X == x.PointB.X) || (x.PointA.Y == x.PointB.Y)).ToList();
         // An 8 megabyte large array of hits...
         // https://www.youtube.com/watch?v=DNeikvoqQ-s
         var grid = new long[1000, 1000];
 
-        foreach (var i in validLines)
+        foreach (var line in validLines)
         {
-            for (var x = i.PointA.X;
-                i.PointA.X <= i.PointB.X ? x <= i.PointB.X : x >= i.PointB.X;
-                x += i.PointA.X > i.PointB.X ? -1 : 1)
-                for (var y = i.PointA.Y;
-                    i.PointA.Y <= i.PointB.Y ? y <= i.PointB.Y : y >= i.PointB.Y;
-                    y += i.PointA.Y > i.PointB.Y ? -1 : 1)
+            for (var x = line.PointA.X;
+                line.PointA.X <= line.PointB.X ? x <= line.PointB.X : x >= line.PointB.X;
+                x += line.PointA.X > line.PointB.X ? -1 : 1)
+                for (var y = line.PointA.Y;
+                    line.PointA.Y <= line.PointB.Y ? y <= line.PointB.Y : y >= line.PointB.Y;
+                    y += line.PointA.Y > line.PointB.Y ? -1 : 1)
                 {
                     grid[x, y] += 1;
                 }
         }
 
+        // IEnumerable.Cast flattens the array
+        // Where there is one or less hit, there is no intercection.
+        // Where there are 2 or more, n - 1 is the number of intercections.
+        // There has to be some obscure bug in the spaghetti that is my for loops, though all inputs seem to have reasonable behavior
         return grid.Cast<long>().Where(x => x > 1).Select(x => x - 1).Sum();
     }
 
