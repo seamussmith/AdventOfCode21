@@ -22,16 +22,16 @@ public class Solution
             if (breedTime < 0)
             {
                 breedTime = 6;
-                if (fishMemo.ContainsKey((8, i)))
-                    fishies += fishMemo[(8, i)];
+                if (fishMemo.ContainsKey((9, i)))
+                    fishies += fishMemo[(9, i)];
                 else
-                    fishies += (fishMemo[(8, i)] = SimulateFishies(8, i));
+                    fishies += (fishMemo[(9, i)] = SimulateFishies(9, i));
             }
         }
         return fishies;
     }
     public long Solution2()
     {
-        throw new NotImplementedException("Solution 2 is not implemented yet");
+        return initalPopulation.Aggregate((long)0, (a, b) => a + SimulateFishies(b, 256));
     }
 }
